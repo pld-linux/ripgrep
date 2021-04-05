@@ -26,6 +26,26 @@ current directory for a regex pattern. By default, ripgrep will
 respect your .gitignore and automatically skip hidden
 files/directories and binary files.
 
+%package -n bash-completion-ripgrep
+Summary:	Bash completion for ripgrep
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	bash-completion >= 2.0
+BuildArch:	noarch
+
+%description -n bash-completion-ripgrep
+Bash completion for ripgrep.
+
+%package -n fish-completion-ripgrep
+Summary:	fish-completion for ripgrep
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	fish
+BuildArch:	noarch
+
+%description -n fish-completion-ripgrep
+fish-completion for ripgrep.
+
 %prep
 %setup -q -a1
 
@@ -55,6 +75,10 @@ rm -rf $RPM_BUILD_ROOT
 export CARGO_HOME="$(pwd)/.cargo"
 
 %cargo_install --frozen --root $RPM_BUILD_ROOT%{_prefix} --path $PWD
+install -D target/release/build/%{name}-*/out/rg.1 $RPM_BUILD_ROOT%{_mandir}/man1/rg.1
+install -D target/release/build/%{name}-*/out/rg.bash $RPM_BUILD_ROOT%{bash_compdir}/rg
+install -D target/release/build/%{name}-*/out/rg.fish $RPM_BUILD_ROOT%{fish_compdir}/rg.fish
+
 %{__rm} $RPM_BUILD_ROOT%{_prefix}/.crates*
 
 %clean
@@ -64,3 +88,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGELOG.md COPYING FAQ.md GUIDE.md LICENSE-MIT README.md UNLICENSE
 %attr(755,root,root) %{_bindir}/rg
+%{_mandir}/man1/rg.1*
+
+%files -n bash-completion-ripgrep
+%defattr(644,root,root,755)
+%{bash_compdir}/rg
+
+%files -n fish-completion-ripgrep
+%defattr(644,root,root,755)
+%{fish_compdir}/rg.fish
