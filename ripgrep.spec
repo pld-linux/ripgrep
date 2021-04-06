@@ -14,6 +14,7 @@ Source1:	%{name}-crates-%{crates_ver}.tar.xz
 URL:		https://github.com/BurntSushi/ripgrep
 BuildRequires:	cargo
 BuildRequires:	rpmbuild(macros) >= 2.004
+BuildRequires:	ruby-asciidoctor
 BuildRequires:	rust
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
