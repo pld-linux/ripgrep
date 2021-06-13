@@ -1,16 +1,16 @@
-%define		crates_ver	12.1.1
+%define		crates_ver	13.0.0
 
 Summary:	Line oriented search tool using Rust's regex library
 Name:		ripgrep
-Version:	12.1.1
-Release:	2
+Version:	13.0.0
+Release:	1
 License:	MIT or Unlicense
 Group:		Applications
 Source0:	https://github.com/BurntSushi/ripgrep/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	d3190853d47d51ad077a65aadbf55448
+# Source0-md5:	3080265a3ccc09bdc0c81527b09afa15
 # ./create-crates.sh
 Source1:	%{name}-crates-%{crates_ver}.tar.xz
-# Source1-md5:	9edecedd92d2a028eff4d41fb3d8a800
+# Source1-md5:	d90b40dc4c17db0cabc45ca3419c28bc
 URL:		https://github.com/BurntSushi/ripgrep
 BuildRequires:	cargo
 BuildRequires:	rpmbuild(macros) >= 2.004
