@@ -53,6 +53,16 @@ BuildArch:	noarch
 %description -n fish-completion-ripgrep
 fish-completion for ripgrep.
 
+%package -n zsh-completion-ripgrep
+Summary:	Zsh completion for rg command
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	zsh
+BuildArch:	noarch
+
+%description -n zsh-completion-ripgrep
+Zsh completion for rg command.
+
 %prep
 %setup -q -a1
 
@@ -85,6 +95,7 @@ export CARGO_HOME="$(pwd)/.cargo"
 install -D %{cargo_outdir}/release/build/%{name}-*/out/rg.1 $RPM_BUILD_ROOT%{_mandir}/man1/rg.1
 install -D %{cargo_outdir}/release/build/%{name}-*/out/rg.bash $RPM_BUILD_ROOT%{bash_compdir}/rg
 install -D %{cargo_outdir}/release/build/%{name}-*/out/rg.fish $RPM_BUILD_ROOT%{fish_compdir}/rg.fish
+install -D complete/_rg $RPM_BUILD_ROOT%{zsh_compdir}/_rg
 
 %{__rm} $RPM_BUILD_ROOT%{_prefix}/.crates*
 
@@ -104,3 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n fish-completion-ripgrep
 %defattr(644,root,root,755)
 %{fish_compdir}/rg.fish
+
+%files -n zsh-completion-ripgrep
+%defattr(644,root,root,755)
+%{zsh_compdir}/_rg
