@@ -1,16 +1,16 @@
-%define		crates_ver	13.0.0
+%define		crates_ver	14.0.1
 
 Summary:	Line oriented search tool using Rust's regex library
 Name:		ripgrep
-Version:	13.0.0
+Version:	14.0.1
 Release:	1
 License:	MIT or Unlicense
 Group:		Applications
 Source0:	https://github.com/BurntSushi/ripgrep/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	3080265a3ccc09bdc0c81527b09afa15
+# Source0-md5:	882f59eeb8570ed197d0deb8d3af6cb9
 # ./create-crates.sh
 Source1:	%{name}-crates-%{crates_ver}.tar.xz
-# Source1-md5:	d90b40dc4c17db0cabc45ca3419c28bc
+# Source1-md5:	a97838e28c2ed389073daae4fae68870
 URL:		https://github.com/BurntSushi/ripgrep
 BuildRequires:	cargo
 BuildRequires:	rpmbuild(macros) >= 2.004
@@ -91,11 +91,13 @@ export CARGO_HOME="$(pwd)/.cargo"
 rm -rf $RPM_BUILD_ROOT
 export CARGO_HOME="$(pwd)/.cargo"
 
+install -d $RPM_BUILD_ROOT{%{_mandir}/man1,%{bash_compdir},%{fish_compdir},%{zsh_compdir}}
+
 %cargo_install --frozen --root $RPM_BUILD_ROOT%{_prefix} --path $PWD
-install -D %{cargo_outdir}/release/build/%{name}-*/out/rg.1 $RPM_BUILD_ROOT%{_mandir}/man1/rg.1
-install -D %{cargo_outdir}/release/build/%{name}-*/out/rg.bash $RPM_BUILD_ROOT%{bash_compdir}/rg
-install -D %{cargo_outdir}/release/build/%{name}-*/out/rg.fish $RPM_BUILD_ROOT%{fish_compdir}/rg.fish
-install -D complete/_rg $RPM_BUILD_ROOT%{zsh_compdir}/_rg
+$RPM_BUILD_ROOT%{_bindir}/rg --generate man > $RPM_BUILD_ROOT%{_mandir}/man1/rg.1
+$RPM_BUILD_ROOT%{_bindir}/rg --generate complete-bash > $RPM_BUILD_ROOT%{bash_compdir}/rg
+$RPM_BUILD_ROOT%{_bindir}/rg --generate complete-fish > $RPM_BUILD_ROOT%{fish_compdir}/rg.fish
+$RPM_BUILD_ROOT%{_bindir}/rg --generate complete-zsh > $RPM_BUILD_ROOT%{zsh_compdir}/_rg
 
 %{__rm} $RPM_BUILD_ROOT%{_prefix}/.crates*
 
