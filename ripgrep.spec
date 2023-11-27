@@ -8,7 +8,6 @@ License:	MIT or Unlicense
 Group:		Applications
 Source0:	https://github.com/BurntSushi/ripgrep/archive/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	882f59eeb8570ed197d0deb8d3af6cb9
-# ./create-crates.sh
 Source1:	%{name}-crates-%{crates_ver}.tar.xz
 # Source1-md5:	a97838e28c2ed389073daae4fae68870
 URL:		https://github.com/BurntSushi/ripgrep
