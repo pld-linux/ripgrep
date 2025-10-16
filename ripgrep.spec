@@ -1,21 +1,21 @@
-%define		crates_ver	14.1.1
+%define		crates_ver	15.0.0
 
 Summary:	Line oriented search tool using Rust's regex library
 Name:		ripgrep
-Version:	14.1.1
+Version:	15.0.0
 Release:	1
 License:	MIT or Unlicense
 Group:		Applications
 Source0:	https://github.com/BurntSushi/ripgrep/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	80fada3fb311956fb0e26f89e8115bf4
+# Source0-md5:	8820ffc48d6e30b3944a7c48e975251d
 Source1:	%{name}-crates-%{crates_ver}.tar.xz
-# Source1-md5:	071c0181968916d8a182139020b9b10c
+# Source1-md5:	38d89659144f00be90640220049ea91b
 URL:		https://github.com/BurntSushi/ripgrep
 BuildRequires:	cargo
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 2.050
 BuildRequires:	ruby-asciidoctor
-BuildRequires:	rust
+BuildRequires:	rust >= 1.85
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 %{?rust_req}
@@ -99,8 +99,6 @@ $RPM_BUILD_ROOT%{_bindir}/rg --generate man > $RPM_BUILD_ROOT%{_mandir}/man1/rg.
 $RPM_BUILD_ROOT%{_bindir}/rg --generate complete-bash > $RPM_BUILD_ROOT%{bash_compdir}/rg
 $RPM_BUILD_ROOT%{_bindir}/rg --generate complete-fish > $RPM_BUILD_ROOT%{fish_compdir}/rg.fish
 $RPM_BUILD_ROOT%{_bindir}/rg --generate complete-zsh > $RPM_BUILD_ROOT%{zsh_compdir}/_rg
-
-%{__rm} $RPM_BUILD_ROOT%{_prefix}/.crates*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
