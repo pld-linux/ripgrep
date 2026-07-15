@@ -1,15 +1,15 @@
-%define		crates_ver	15.1.0
+%define		crates_ver	15.2.0
 
 Summary:	Line oriented search tool using Rust's regex library
 Name:		ripgrep
-Version:	15.1.0
+Version:	15.2.0
 Release:	1
 License:	MIT or Unlicense
 Group:		Applications
 Source0:	https://github.com/BurntSushi/ripgrep/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	8ac9129b122facd6b0c864bde60827ab
+# Source0-md5:	dfe462fc2253d178f33047be729bf1d3
 Source1:	%{name}-crates-%{crates_ver}.tar.xz
-# Source1-md5:	d8b2f394decc419611841147249d2938
+# Source1-md5:	6c678244f757a2ccde63e0b805843162
 URL:		https://github.com/BurntSushi/ripgrep
 BuildRequires:	cargo
 BuildRequires:	rpm-build >= 4.6
@@ -21,12 +21,6 @@ BuildRequires:	xz
 %{?rust_req}
 ExclusiveArch:	%{rust_arches}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%ifarch x32
-%define		cargo_outdir	target/x86_64-unknown-linux-gnux32
-%else
-%define		cargo_outdir	target
-%endif
 
 %description
 ripgrep is a line-oriented search tool that recursively searches your
